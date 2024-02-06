@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SkillStarLearning.SubscriptionRules.Application\SkillStarLearning.SubscriptionRules.Application.csproj" />
+    <ProjectReference Include="..\SkillStarLearning.SubscriptionRules.Infrastructure\SkillStarLearning.SubscriptionRules.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

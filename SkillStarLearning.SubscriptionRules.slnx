@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/docs/">
+    <File Path="docs/subscription-products.md" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Application/">
+    <Project Path="src/SkillStarLearning.SubscriptionRules.Application/SkillStarLearning.SubscriptionRules.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/Core/">
+    <Project Path="src/SkillStarLearning.SubscriptionRules.Core/SkillStarLearning.SubscriptionRules.Core.csproj" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/">
+    <Project Path="src/SkillStarLearning.SubscriptionRules.Infrastructure/SkillStarLearning.SubscriptionRules.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/UI/">
+    <Project Path="src/SkillStarLearning.SubscriptionRules.UI/SkillStarLearning.SubscriptionRules.UI.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SkillStarLearning.SubscriptionRules.UnitTests/SkillStarLearning.SubscriptionRules.UnitTests.csproj" />
+  </Folder>
+</Solution>
