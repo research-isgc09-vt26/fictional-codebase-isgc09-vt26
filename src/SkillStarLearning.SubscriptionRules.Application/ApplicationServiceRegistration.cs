@@ -9,7 +9,8 @@ namespace SkillStarLearning.SubscriptionRules.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddSingleton(TimeProvider.System);
-            services.AddScoped<ISubscriptionService, SubscriptionService>();
+            services.AddScoped<IOldSubscriptionService, OldSubscriptionService>();
+            services.AddScoped<INewSubscriptionService, NewSubscriptionService>();
 
             return services;
         }

@@ -7,11 +7,15 @@ using System.Text;
 
 namespace SkillStarLearning.SubscriptionRules.Infrastructure
 {
-    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+    public static class ApplicationServiceRegistration
     {
-        services.AddSingleton<ISubscriptionRepository, InMemorySubscriptionRepository>();
-        services.AddSingleton<IUserProfileRepository, InMemoryUserProfileRepository>();
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+        {
+            services.AddSingleton<ISubscriptionRepository, InMemorySubscriptionRepository>();
+            services.AddSingleton<IUserProfileRepository, InMemoryUserProfileRepository>();
 
-        return services;
+            return services;
+        }
     }
+    
 }

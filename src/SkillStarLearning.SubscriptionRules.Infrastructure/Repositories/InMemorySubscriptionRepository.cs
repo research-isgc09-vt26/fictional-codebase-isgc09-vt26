@@ -1,5 +1,6 @@
 ﻿using SkillStarLearning.SubscriptionRules.Application.Contracts.Persistence;
 using SkillStarLearning.SubscriptionRules.Core.Entities;
+using SkillStarLearning.SubscriptionRules.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,7 +17,8 @@ namespace SkillStarLearning.SubscriptionRules.Infrastructure.Repositories
                 SubscriptionType = SubscriptionType.OnlineSubscription,
                 Status = SubscriptionStatus.Active,
                 RenewalDate = DateTime.UtcNow.Date.AddDays(18),
-                PaymentStatus = PaymentStatus.Paid
+                PaymentStatus = PaymentStatus.Paid,
+                CreatedDate = DateTime.UtcNow.Date.AddDays(-30)
             }
         };
 

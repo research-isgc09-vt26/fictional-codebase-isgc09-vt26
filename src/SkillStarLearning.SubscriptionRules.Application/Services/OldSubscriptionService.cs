@@ -1,17 +1,20 @@
 ﻿using SkillStarLearning.SubscriptionRules.Application.Contracts.Persistence;
 using SkillStarLearning.SubscriptionRules.Application.Contracts.Services;
+using SkillStarLearning.SubscriptionRules.Application.Exceptions;
 using SkillStarLearning.SubscriptionRules.Application.Models;
 using SkillStarLearning.SubscriptionRules.Core.Entities;
 using SkillStarLearning.SubscriptionRules.Core.Enums;
 
 namespace SkillStarLearning.SubscriptionRules.Application.Services
 {
-    public sealed class SubscriptionService : ISubscriptionService
+    // TODO: I am temporarily renaming it until we have time to move everything properly to NewSubscriptionService
+    //       See docs/subscription-service-refactoring-notes.md for more details
+    public sealed class OldSubscriptionService : IOldSubscriptionService
     {
         private readonly ISubscriptionRepository _subscriptionRepository;
         private readonly IUserProfileRepository _userProfileRepository;
 
-        public SubscriptionService(
+        public OldSubscriptionService(
             ISubscriptionRepository subscriptionRepository,
             IUserProfileRepository userProfileRepository)
         {
@@ -32,7 +35,8 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
             return ToOverview(account, profile);
         }
 
-        public static SubscriptionOverviewDto ToOverview(SubscriptionAccount account, UserProfile profile)
+        // Don't use it anymore! Refactor and move to NewSubscriptionService!
+        public SubscriptionOverviewDto ToOverview(SubscriptionAccount account, UserProfile profile)
         {
             return new SubscriptionOverviewDto
             {

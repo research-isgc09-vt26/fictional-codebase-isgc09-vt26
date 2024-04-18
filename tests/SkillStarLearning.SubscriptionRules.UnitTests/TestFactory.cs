@@ -1,4 +1,5 @@
 ﻿using SkillStarLearning.SubscriptionRules.Application.Contracts.Persistence;
+using SkillStarLearning.SubscriptionRules.Application.Services;
 using SkillStarLearning.SubscriptionRules.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,14 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
 
         public static IUserProfileRepository CreateUserProfileRepository() => new InMemoryUserProfileRepository();
 
-        public static SubscriptionService CreateSubscriptionService()
+        public static OldSubscriptionService CreateOldSubscriptionService()
         {
-            return new SubscriptionService(CreateSubscriptionRepository(), CreateUserProfileRepository());
+            return new OldSubscriptionService(CreateSubscriptionRepository(), CreateUserProfileRepository());
+        }
+
+        public static NewSubscriptionService CreateSubscriptionService()
+        {
+            return new NewSubscriptionService(CreateSubscriptionRepository());
         }
     }
 

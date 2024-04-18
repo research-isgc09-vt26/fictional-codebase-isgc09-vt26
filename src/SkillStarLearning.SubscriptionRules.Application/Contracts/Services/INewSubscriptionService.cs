@@ -1,14 +1,15 @@
 ﻿using SkillStarLearning.SubscriptionRules.Application.Models;
 using SkillStarLearning.SubscriptionRules.Core.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Services
 {
-    public interface ISubscriptionService
+    public interface INewSubscriptionService
     {
-        Task<SubscriptionOverviewDto> GetSubscriptionSettingsAsync(
+        Task<SimpleSubscriptionSummaryDto> GetSubscriptionWidgetSummaryAsync(
             string userId,
             CancellationToken cancellationToken = default);
-
-        SubscriptionOverviewDto ToOverview(SubscriptionAccount account, UserProfile profile);
     }
 }

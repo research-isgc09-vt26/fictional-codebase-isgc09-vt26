@@ -12,10 +12,10 @@ namespace SkillStarLearning.SubscriptionRules.UI.Controllers
     [Route("api/subscription-settings")]
     public sealed class SubscriptionSettingsController : ControllerBase
     {
-        private readonly SubscriptionService _subscriptionService;
+        private readonly OldSubscriptionService _subscriptionService;
 
         public SubscriptionSettingsController(
-            SubscriptionService subscriptionService)
+            OldSubscriptionService subscriptionService)
         {
             _subscriptionService = subscriptionService;
         }

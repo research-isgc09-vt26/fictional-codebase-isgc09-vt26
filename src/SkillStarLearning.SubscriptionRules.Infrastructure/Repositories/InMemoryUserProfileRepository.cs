@@ -15,9 +15,9 @@ namespace SkillStarLearning.SubscriptionRules.Infrastructure.Repositories
                 UserId = "online-user-01",
                 PreferredDisplayName = "Jane",
                 Email = "jane.doe@example.test",
-                PhoneNumber = "+45 11 22 33 44",
                 BillingAddress = "Online Street 10, 1000 Copenhagen",
-                HasAcceptedMembershipTerms = true
+                HasAcceptedMembershipTerms = true,
+                CreatedDate = DateTime.UtcNow.Date.AddDays(-30)
             }
         };
 
@@ -33,3 +33,4 @@ namespace SkillStarLearning.SubscriptionRules.Infrastructure.Repositories
             return Task.CompletedTask;
         }
     }
+}
