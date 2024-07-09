@@ -36,8 +36,12 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
         }
 
         // Don't use it anymore! Refactor and move to NewSubscriptionService!
+        // UPD: Maybe there is more point keeping it - waiting clarification from tech lead and legal
         public SubscriptionOverviewDto ToOverview(SubscriptionAccount account, UserProfile profile)
         {
+            var nudgeToReviewProfile = account.SubscriptionType == SubscriptionType.CommunityMembershipSubscription
+                && (!profile.AllowsEventCommunication || string.IsNullOrEmpty(profile.PhoneNumber));
+            
             return new SubscriptionOverviewDto
             {
                 UserId = account.UserId,
@@ -45,13 +49,21 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
                 Status = account.Status,
                 RenewalDate = account.RenewalDate,
                 PaymentStatus = account.PaymentStatus,
+                CanManageSubscription = account.CanManageSubscription,
+                RequiresMembershipProfileReview = nudgeToReviewProfile,
                 Profile = new SubscriptionProfileDto
                 {
                     UserId = profile.UserId,
                     PreferredDisplayName = profile.PreferredDisplayName,
                     Email = profile.Email,
                     BillingAddress = profile.BillingAddress,
-                    HasAcceptedMembershipTerms = profile.HasAcceptedMembershipTerms
+                    HasAcceptedMembershipTerms = profile.HasAcceptedMembershipTerms,
+                    FullName = profile.FullName,
+                    PhoneNumber = profile.PhoneNumber,
+                    LocalCommunityRegion = profile.LocalCommunityRegion,
+                    AllowsEventCommunication = profile.AllowsEventCommunication,
+                    AccessibilityNotes = profile.AccessibilityNotes,
+                    EmergencyContactPreference = profile.EmergencyContactPreference
                 }
             };
         }

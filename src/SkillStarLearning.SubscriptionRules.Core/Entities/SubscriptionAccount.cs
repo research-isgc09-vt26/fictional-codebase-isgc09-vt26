@@ -10,5 +10,6 @@ namespace SkillStarLearning.SubscriptionRules.Core.Entities
         public SubscriptionStatus Status { get; set; }
         public DateTime? RenewalDate { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
+        public bool CanManageSubscription { get; set; }
     }
 }

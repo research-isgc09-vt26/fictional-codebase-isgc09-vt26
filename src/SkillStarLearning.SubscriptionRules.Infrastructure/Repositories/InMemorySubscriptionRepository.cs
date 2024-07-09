@@ -19,6 +19,26 @@ namespace SkillStarLearning.SubscriptionRules.Infrastructure.Repositories
                 RenewalDate = DateTime.UtcNow.Date.AddDays(18),
                 PaymentStatus = PaymentStatus.Paid,
                 CreatedDate = DateTime.UtcNow.Date.AddDays(-30)
+            },
+            ["community-user-01"] = new SubscriptionAccount
+            {
+                UserId = "community-user-01",
+                SubscriptionType = SubscriptionType.CommunityMembershipSubscription,
+                Status = SubscriptionStatus.Active,
+                RenewalDate = DateTime.UtcNow.Date.AddDays(22),
+                PaymentStatus = PaymentStatus.Paid,
+                CanManageSubscription = true,
+                CreatedDate = DateTime.UtcNow.Date.AddDays(-3)
+            },
+            ["community-user-02"] = new SubscriptionAccount
+            {
+                UserId = "community-user-02",
+                SubscriptionType = SubscriptionType.CommunityMembershipSubscription,
+                Status = SubscriptionStatus.Active,
+                RenewalDate = DateTime.UtcNow.Date.AddDays(22),
+                PaymentStatus = PaymentStatus.Paid,
+                CanManageSubscription = true,
+                CreatedDate = DateTime.UtcNow.Date.AddDays(-3)
             }
         };
 

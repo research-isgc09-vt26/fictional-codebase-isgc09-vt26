@@ -7,5 +7,11 @@
         public required string Email { get; set; }
         public required string BillingAddress { get; set; }
         public bool HasAcceptedMembershipTerms { get; set; }
+        public string FullName { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
+        public string LocalCommunityRegion { get; set; } = string.Empty;
+        public bool AllowsEventCommunication { get; set; }
+        public string AccessibilityNotes { get; set; } = string.Empty;
+        public string EmergencyContactPreference { get; set; } = string.Empty;
     }
 }

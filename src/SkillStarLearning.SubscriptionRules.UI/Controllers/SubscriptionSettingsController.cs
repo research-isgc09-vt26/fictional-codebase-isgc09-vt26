@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SkillStarLearning.SubscriptionRules.Application.Contracts.Features.UpdateSubscriptionSettings;
 using SkillStarLearning.SubscriptionRules.Application.Models;
 using SkillStarLearning.SubscriptionRules.Application.Services;
 using System;
@@ -13,11 +14,14 @@ namespace SkillStarLearning.SubscriptionRules.UI.Controllers
     public sealed class SubscriptionSettingsController : ControllerBase
     {
         private readonly OldSubscriptionService _subscriptionService;
+        private readonly IUpdateSubscriptionSettingsHandler _updateSubscriptionSettingsHandler;
 
         public SubscriptionSettingsController(
-            OldSubscriptionService subscriptionService)
+            OldSubscriptionService subscriptionService,
+            IUpdateSubscriptionSettingsHandler updateSubscriptionSettingsHandler)
         {
             _subscriptionService = subscriptionService;
+            _updateSubscriptionSettingsHandler = updateSubscriptionSettingsHandler;
         }
 
         [HttpGet("{userId}", Name = "GetSubscriptionSettings")]
@@ -25,6 +29,17 @@ namespace SkillStarLearning.SubscriptionRules.UI.Controllers
         public async Task<ActionResult<SubscriptionOverviewDto>> Get(string userId, CancellationToken cancellationToken)
         {
             return Ok(await _subscriptionService.GetSubscriptionSettingsAsync(userId, cancellationToken));
+        }
+
+        [HttpPut("{userId}", Name = "UpdateSubscriptionSettings")]
+        [ProducesResponseType(typeof(SubscriptionOverviewDto), StatusCodes.Status200OK)]
+        public async Task<ActionResult<SubscriptionOverviewDto>> Update(
+        string userId,
+        [FromBody] UpdateSubscriptionSettingsCommand command,
+        CancellationToken cancellationToken)
+        {
+            command.UserId = userId;
+            return Ok(await _updateSubscriptionSettingsHandler.Handle(command, cancellationToken));
         }
     }
 }

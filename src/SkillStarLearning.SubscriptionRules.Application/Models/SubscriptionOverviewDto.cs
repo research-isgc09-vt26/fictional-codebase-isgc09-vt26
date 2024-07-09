@@ -10,5 +10,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Models
         public DateTime? RenewalDate { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
         public required SubscriptionProfileDto Profile { get; set; }
+        public bool CanManageSubscription { get; set; }
+        public bool RequiresMembershipProfileReview { get; set; }
     }
 }

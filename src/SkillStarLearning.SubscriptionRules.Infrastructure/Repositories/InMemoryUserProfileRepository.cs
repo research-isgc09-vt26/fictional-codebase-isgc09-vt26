@@ -18,6 +18,36 @@ namespace SkillStarLearning.SubscriptionRules.Infrastructure.Repositories
                 BillingAddress = "Online Street 10, 1000 Copenhagen",
                 HasAcceptedMembershipTerms = true,
                 CreatedDate = DateTime.UtcNow.Date.AddDays(-30)
+            },
+            ["community-user-01"] = new UserProfile
+            {
+                UserId = "community-user-01",
+                FullName = "John Doe",
+                PreferredDisplayName = "Jonny",
+                Email = "john.doe@example.test",
+                PhoneNumber = "+45 55 66 77 88",
+                BillingAddress = "Member Road 42, 2200 Copenhagen",
+                LocalCommunityRegion = "Copenhagen North",
+                AllowsEventCommunication = true,
+                HasAcceptedMembershipTerms = true,
+                CreatedDate = DateTime.UtcNow.Date.AddDays(-3),
+                AccessibilityNotes = "Step-free access requested",
+                EmergencyContactPreference = "Call listed phone number: +45 11 22 33 44 (Jane)"
+            },
+            ["community-user-02"] = new UserProfile
+            {
+                UserId = "community-user-01",
+                FullName = "Jon Doe",
+                PreferredDisplayName = "Jonny",
+                Email = "jon.doe@example.test",
+                PhoneNumber = "+45 55 66 77 89",
+                BillingAddress = "Member Road 41, 2200 Copenhagen",
+                LocalCommunityRegion = "Copenhagen North",
+                AllowsEventCommunication = false,
+                HasAcceptedMembershipTerms = true,
+                CreatedDate = DateTime.UtcNow.Date.AddDays(-3),
+                AccessibilityNotes = "",
+                EmergencyContactPreference = ""
             }
         };
 
