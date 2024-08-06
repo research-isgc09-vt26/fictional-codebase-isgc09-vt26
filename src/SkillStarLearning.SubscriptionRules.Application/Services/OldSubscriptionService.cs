@@ -9,6 +9,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
 {
     // TODO: I am temporarily renaming it until we have time to move everything properly to NewSubscriptionService
     //       See docs/subscription-service-refactoring-notes.md for more details
+    // TODO: Refactoring is planned in TECHDEBT-123
     public sealed class OldSubscriptionService : IOldSubscriptionService
     {
         private readonly ISubscriptionRepository _subscriptionRepository;
@@ -35,8 +36,6 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
             return ToOverview(account, profile);
         }
 
-        // Don't use it anymore! Refactor and move to NewSubscriptionService!
-        // UPD: Maybe there is more point keeping it - waiting clarification from tech lead and legal
         public SubscriptionOverviewDto ToOverview(SubscriptionAccount account, UserProfile profile)
         {
             var nudgeToReviewProfile = account.SubscriptionType == SubscriptionType.CommunityMembershipSubscription

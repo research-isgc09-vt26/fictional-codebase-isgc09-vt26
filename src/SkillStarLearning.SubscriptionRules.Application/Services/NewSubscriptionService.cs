@@ -8,6 +8,7 @@ using System.Text;
 
 namespace SkillStarLearning.SubscriptionRules.Application.Services
 {
+    // TODO: Refactoring will be done in TECHDEBT-123 task. Currently used for the widget.
     public sealed class NewSubscriptionService : INewSubscriptionService
     {
         private readonly ISubscriptionRepository _subscriptionRepository;
