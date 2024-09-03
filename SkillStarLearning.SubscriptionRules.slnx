@@ -1,7 +1,8 @@
 <Solution>
   <Folder Name="/docs/">
-    <File Path="../../test/architecting-asp-dot-net-core-applications-best-practices/09/demos/end/subscription-test/docs/subscription-service-refactoring-notes.md" />
+    <File Path="../../test/architecting-asp-dot-net-core-applications-best-practices/09/demos/end/subscription-test/docs/membership-signup.md" />
     <File Path="docs/subscription-products.md" />
+    <File Path="refactoring-notes.md" />
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Application/">

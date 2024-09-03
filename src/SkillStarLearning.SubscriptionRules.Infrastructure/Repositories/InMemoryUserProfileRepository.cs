@@ -48,6 +48,20 @@ namespace SkillStarLearning.SubscriptionRules.Infrastructure.Repositories
                 CreatedDate = DateTime.UtcNow.Date.AddDays(-3),
                 AccessibilityNotes = "",
                 EmergencyContactPreference = ""
+            },
+            ["signup-user-01"] = new UserProfile
+            {
+                UserId = "signup-user-01",
+                FullName = "Anders Andersen",
+                PreferredDisplayName = "Anders",
+                Email = "anders.andersen@example.test",
+                BillingAddress = "Member Road 40, 2200 Copenhagen",
+                LocalCommunityRegion = "Copenhagen North",
+                AllowsEventCommunication = true,
+                HasAcceptedMembershipTerms = true,
+                CreatedDate = DateTime.UtcNow.Date.AddDays(-2),
+                AccessibilityNotes = "",
+                EmergencyContactPreference = ""
             }
         };
 

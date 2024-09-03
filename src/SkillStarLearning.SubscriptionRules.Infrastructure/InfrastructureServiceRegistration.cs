@@ -13,6 +13,7 @@ namespace SkillStarLearning.SubscriptionRules.Infrastructure
         {
             services.AddSingleton<ISubscriptionRepository, InMemorySubscriptionRepository>();
             services.AddSingleton<IUserProfileRepository, InMemoryUserProfileRepository>();
+            services.AddSingleton<IMembershipSignupRepository, InMemoryMembershipSignupRepository>();
 
             return services;
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SkillStarLearning.SubscriptionRules.Core.Enums;
+using SkillStarLearning.SubscriptionRules.UnitTests.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
