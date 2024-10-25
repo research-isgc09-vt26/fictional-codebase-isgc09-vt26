@@ -15,15 +15,18 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Upd
         private readonly ISubscriptionRepository _subscriptionRepository;
         private readonly IUserProfileRepository _userProfileRepository;
         private readonly OldSubscriptionService _subscriptionService;
+        private readonly IMembershipSignupRepository _membershipSignupRepository;
 
         public UpdateSubscriptionSettingsHandler(
             ISubscriptionRepository subscriptionRepository,
             IUserProfileRepository userProfileRepository,
-            OldSubscriptionService subscriptionService)
+            OldSubscriptionService subscriptionService,
+            IMembershipSignupRepository membershipSignupRepository)
         {
             _subscriptionRepository = subscriptionRepository;
             _userProfileRepository = userProfileRepository;
             _subscriptionService = subscriptionService;
+            _membershipSignupRepository = membershipSignupRepository;
         }
 
         public async Task<SubscriptionOverviewDto> Handle(
@@ -54,7 +57,9 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Upd
 
             await _userProfileRepository.SaveAsync(profile, cancellationToken);
 
-            return _subscriptionService.ToOverview(account, profile);
+            var signup = await _membershipSignupRepository.GetByUserIdAsync(command.UserId, cancellationToken);
+
+            return _subscriptionService.ToOverview(account, profile, signup);
         }
 
         private static void ValidateMembershipFields(UpdateSubscriptionSettingsCommand command)

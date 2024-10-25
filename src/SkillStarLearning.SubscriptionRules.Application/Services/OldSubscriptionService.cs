@@ -14,13 +14,16 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
     {
         private readonly ISubscriptionRepository _subscriptionRepository;
         private readonly IUserProfileRepository _userProfileRepository;
+        private readonly IMembershipSignupRepository _membershipSignupRepository;
 
         public OldSubscriptionService(
             ISubscriptionRepository subscriptionRepository,
-            IUserProfileRepository userProfileRepository)
+            IUserProfileRepository userProfileRepository,
+            IMembershipSignupRepository membershipSignupRepository)
         {
             _subscriptionRepository = subscriptionRepository;
             _userProfileRepository = userProfileRepository;
+            _membershipSignupRepository = membershipSignupRepository;
         }
 
         public async Task<SubscriptionOverviewDto> GetSubscriptionSettingsAsync(
@@ -33,10 +36,12 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
             var profile = await _userProfileRepository.GetByUserIdAsync(userId, cancellationToken)
                 ?? throw new NotFoundException(nameof(UserProfile), userId);
 
-            return ToOverview(account, profile);
+            var signupInfo = await _membershipSignupRepository.GetByUserIdAsync(userId, cancellationToken);
+
+            return ToOverview(account, profile, signupInfo);
         }
 
-        public SubscriptionOverviewDto ToOverview(SubscriptionAccount account, UserProfile profile)
+        public SubscriptionOverviewDto ToOverview(SubscriptionAccount account, UserProfile profile, MembershipSignup? signupInfo)
         {
             var nudgeToReviewProfile = account.SubscriptionType == SubscriptionType.CommunityMembershipSubscription
                 && (!profile.AllowsEventCommunication || string.IsNullOrEmpty(profile.PhoneNumber));
@@ -50,6 +55,14 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
                 PaymentStatus = account.PaymentStatus,
                 CanManageSubscription = account.CanManageSubscription,
                 RequiresMembershipProfileReview = nudgeToReviewProfile,
+                SignupInfo = signupInfo is null ? null : new MembershipSignupResultDto
+                {
+                    UserId = signupInfo.UserId,
+                    SignupType = signupInfo.SignupType,
+                    TrialStartsOn = signupInfo.TrialStartsOn,
+                    TrialEndsOn = signupInfo.TrialEndsOn,
+                    CreatesPaidSubscription = signupInfo.CreatesPaidSubscription
+                },
                 Profile = new SubscriptionProfileDto
                 {
                     UserId = profile.UserId,

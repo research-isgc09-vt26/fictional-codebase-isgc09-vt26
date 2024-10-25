@@ -32,5 +32,11 @@ namespace SkillStarLearning.SubscriptionRules.Infrastructure.Repositories
         {
             return Task.FromResult<IReadOnlyList<MembershipSignup>>(_fakeSignups);
         }
+
+        public Task<MembershipSignup?> GetByUserIdAsync(string userId, CancellationToken cancellationToken = default)
+        {
+            var signup = _fakeSignups.FirstOrDefault(x => x.UserId == userId);
+            return Task.FromResult(signup);
+        }
     }
 }

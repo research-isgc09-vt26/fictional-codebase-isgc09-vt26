@@ -9,6 +9,6 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Services
             string userId,
             CancellationToken cancellationToken = default);
 
-        SubscriptionOverviewDto ToOverview(SubscriptionAccount account, UserProfile profile);
+        SubscriptionOverviewDto ToOverview(SubscriptionAccount account, UserProfile profile, MembershipSignup? signupInfo);
     }
 }

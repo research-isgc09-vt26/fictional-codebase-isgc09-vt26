@@ -3,6 +3,7 @@
     public enum SubscriptionType
     {
         OnlineSubscription = 1,
-        CommunityMembershipSubscription = 2
+        CommunityMembershipSubscription = 2,
+        MembershipSignupSubscription = 3
     }
 }

@@ -8,7 +8,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Cre
     {
         public required string UserId { get; set; }
         public required string StaffMember { get; set; }
-        public bool CreatesPaidSubscription { get; set; } = false;
+        public bool CreatesPaidSubscription { get; set; } = true;
     }
 
 }

@@ -26,7 +26,7 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
 
             Assert.AreEqual(SubscriptionStatus.Trial, result.TrialStatus);
             Assert.AreEqual(now.UtcDateTime.AddDays(30), result.TrialEndsOn);
-            Assert.IsFalse(result.CreatesPaidSubscription);
+            Assert.IsTrue(result.CreatesPaidSubscription);
         }
     }
 

@@ -23,7 +23,7 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests.Util
 
         public static OldSubscriptionService CreateOldSubscriptionService()
         {
-            return new OldSubscriptionService(CreateSubscriptionRepository(), CreateUserProfileRepository());
+            return new  OldSubscriptionService(CreateSubscriptionRepository(), CreateUserProfileRepository(), CreateMembershipSignupRepository());
         }
 
         public static NewSubscriptionService CreateSubscriptionService()

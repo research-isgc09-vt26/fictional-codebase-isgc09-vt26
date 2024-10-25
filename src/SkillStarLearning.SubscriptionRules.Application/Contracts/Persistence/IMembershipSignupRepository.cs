@@ -9,5 +9,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Persistence
     {
         Task AddAsync(MembershipSignup signup, CancellationToken cancellationToken = default);
         Task<IReadOnlyList<MembershipSignup>> ListAsync(CancellationToken cancellationToken = default);
+        Task<MembershipSignup?> GetByUserIdAsync(string userId, CancellationToken cancellationToken = default);
+
     }
 }

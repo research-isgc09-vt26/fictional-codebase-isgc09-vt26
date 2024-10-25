@@ -56,6 +56,16 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
             Assert.IsTrue(overview.RequiresMembershipProfileReview);
             
         }
+
+        [TestMethod]
+        public async Task SubscriptionService_MembershipSignupSubscription_IncludesSignupInfo()
+        {
+            var service = TestFactory.CreateOldSubscriptionService();
+
+            var overview = await service.GetSubscriptionSettingsAsync("signup-user-01");
+
+            Assert.IsNotNull(overview.SignupInfo);
+        }
     }
 
 }
