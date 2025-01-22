@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/docs/">
+    <File Path="docs/market-b-subscription-model.md" />
     <File Path="docs/membership-signup.md" />
     <File Path="docs/subscription-products.md" />
     <File Path="refactoring-notes.md" />

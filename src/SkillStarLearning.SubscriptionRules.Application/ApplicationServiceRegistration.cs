@@ -15,6 +15,8 @@ namespace SkillStarLearning.SubscriptionRules.Application
             services.AddScoped<UpdateSubscriptionSettingsHandler, UpdateSubscriptionSettingsHandler>();
             services.AddScoped<IMembershipSignupService, MembershipSignupService>();
             services.AddScoped<ISubscriptionMessageService, SubscriptionMessageService>();
+            services.AddScoped<IMarketSubscriptionPolicy, MarketSubscriptionPolicy>();
+            services.AddScoped<ISubscriptionAvailabilityService, SubscriptionAvailabilityService>();
 
             return services;
         }
