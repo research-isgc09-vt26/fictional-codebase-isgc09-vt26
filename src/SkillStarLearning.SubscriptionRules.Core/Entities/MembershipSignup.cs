@@ -15,5 +15,6 @@ namespace SkillStarLearning.SubscriptionRules.Core.Entities
         public DateTime TrialStartsOn { get; set; }
         public DateTime TrialEndsOn { get; set; }
         public bool CreatesPaidSubscription { get; set; }
+        public required Segmentation Segmentation { get; set; }
     }
 }

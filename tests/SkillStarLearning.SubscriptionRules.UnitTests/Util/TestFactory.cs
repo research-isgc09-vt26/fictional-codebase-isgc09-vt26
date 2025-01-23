@@ -1,5 +1,6 @@
 ﻿using SkillStarLearning.SubscriptionRules.Application.Contracts.Infrastructure;
 using SkillStarLearning.SubscriptionRules.Application.Contracts.Persistence;
+using SkillStarLearning.SubscriptionRules.Application.Contracts.Services;
 using SkillStarLearning.SubscriptionRules.Application.Services;
 using SkillStarLearning.SubscriptionRules.Infrastructure.AuditLogWriter;
 using SkillStarLearning.SubscriptionRules.Infrastructure.Repositories;
@@ -19,7 +20,7 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests.Util
 
         public static IAuditLogWriter CreateAuditLogWriter() => new AuditLogWriter();
 
-
+        public static IMarketSubscriptionPolicy CreateMarketSubscriptionPolicy() => new MarketSubscriptionPolicy();
 
         public static OldSubscriptionService CreateOldSubscriptionService()
         {
@@ -36,6 +37,7 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests.Util
             return new MembershipSignupService(
                 CreateMembershipSignupRepository(),
                 CreateAuditLogWriter(),
+                CreateMarketSubscriptionPolicy(),
                 timeProvider ?? TimeProvider.System);
         }
     }

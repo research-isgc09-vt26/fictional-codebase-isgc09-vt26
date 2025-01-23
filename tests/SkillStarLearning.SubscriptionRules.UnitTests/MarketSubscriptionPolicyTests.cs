@@ -34,6 +34,14 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
             Assert.IsFalse(policy.IsSubscriptionAvailable(Segmentation.SegmentationB, SubscriptionType.OnlineSubscription));
             Assert.IsFalse(policy.IsMembershipSignupAvailable(Segmentation.SegmentationB));
         }
+
+        [TestMethod]
+        public void SegmentationB_CommunityMemebrshipSubscription()
+        {
+            var policy = new MarketSubscriptionPolicy();
+
+            Assert.IsTrue(policy.IsSubscriptionAvailable(Segmentation.SegmentationB, SubscriptionType.CommunityMembershipSubscription));
+        }
     }
 
 }

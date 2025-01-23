@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkillStarLearning.SubscriptionRules.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Cre
         public required string UserId { get; set; }
         public required string StaffMember { get; set; }
         public bool CreatesPaidSubscription { get; set; } = true;
+        public required Segmentation Segmentation { get; set; }
     }
 
 }

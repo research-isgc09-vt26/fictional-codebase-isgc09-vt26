@@ -17,14 +17,18 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
         private readonly IMembershipSignupRepository _membershipSignupRepository;
         private readonly IAuditLogWriter _auditLogWriter;
         private readonly TimeProvider _timeProvider;
+        private readonly IMarketSubscriptionPolicy _marketSubscriptionPolicy;
+
 
         public MembershipSignupService(
             IMembershipSignupRepository membershipSignupRepository,
             IAuditLogWriter auditLogWriter,
+            IMarketSubscriptionPolicy marketSubscriptionPolicy,
             TimeProvider timeProvider)
         {
             _membershipSignupRepository = membershipSignupRepository;
             _auditLogWriter = auditLogWriter;
+            _marketSubscriptionPolicy = marketSubscriptionPolicy;
             _timeProvider = timeProvider;
         }
 
@@ -32,6 +36,11 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
             CreateMembershipSignupCommand command,
             CancellationToken cancellationToken = default)
         {
+            if (!_marketSubscriptionPolicy.IsMembershipSignupAvailable(command.Segmentation))
+            {
+                throw new BusinessRuleException("MembershipSignup is not available in this market.");
+            }
+
             var now = _timeProvider.GetUtcNow().UtcDateTime;
             var signup = new MembershipSignup
             {
@@ -41,7 +50,8 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
                 TrialEndsOn = now.AddDays(30),
                 CreatesPaidSubscription = command.CreatesPaidSubscription,
                 CreatedBy = command.StaffMember,
-                CreatedDate = now
+                CreatedDate = now,
+                Segmentation = command.Segmentation
             };
 
             await _membershipSignupRepository.AddAsync(signup, cancellationToken);

@@ -18,7 +18,8 @@ namespace SkillStarLearning.SubscriptionRules.Infrastructure.Repositories
                 CreatedDate = DateTime.UtcNow.Date.AddDays(-2),
                 TrialStartsOn  = DateTime.UtcNow.Date.AddDays(-2),
                 TrialEndsOn = DateTime.UtcNow.Date.AddDays(28),
-                CreatesPaidSubscription = false
+                CreatesPaidSubscription = false,
+                Segmentation = Segmentation.SegmentationA
             },
         ];
 

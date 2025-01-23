@@ -21,7 +21,8 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
             var result = await service.StartOfflineEventSignupAsync(new CreateMembershipSignupCommand
             {
                 UserId = "event-attendee",
-                StaffMember = "staff-1"
+                StaffMember = "staff-1",
+                Segmentation = Segmentation.SegmentationA
             });
 
             Assert.AreEqual(SubscriptionStatus.Trial, result.TrialStatus);

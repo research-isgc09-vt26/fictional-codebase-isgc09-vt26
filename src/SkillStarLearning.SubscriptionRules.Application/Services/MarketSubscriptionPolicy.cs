@@ -22,10 +22,12 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
         {
             var model = GetSubscriptionModel(segmentation);
 
+            var isCommunityOnlySubscriptionModel = subscriptionType == SubscriptionType.CommunityMembershipSubscription;
+
             return model switch
             {
                 MarketSubscriptionModel.StandardMixedSubscriptionModel => true,
-                MarketSubscriptionModel.CommunityOnlySubscriptionModel => false,
+                MarketSubscriptionModel.CommunityOnlySubscriptionModel => isCommunityOnlySubscriptionModel,
                 _ => false
             };
         }
