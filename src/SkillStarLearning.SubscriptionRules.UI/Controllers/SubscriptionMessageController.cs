@@ -19,9 +19,10 @@ namespace SkillStarLearning.SubscriptionRules.UI.Controllers
         [HttpGet("{flowType}", Name = "GetSubscriptionMessage")]
         [ProducesResponseType(typeof(SubscriptionMessageDto), StatusCodes.Status200OK)]
         public ActionResult<SubscriptionMessageDto> Get(
-            SubscriptionMessageFlowType flowType)
+            SubscriptionMessageFlowType flowType,
+            [FromQuery] Segmentation segmentation = Segmentation.SegmentationA)
         {
-            return Ok(_subscriptionMessageService.GetMessage(flowType));
+            return Ok(_subscriptionMessageService.GetMessage(flowType, segmentation));
         }
     }
 }

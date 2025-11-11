@@ -14,5 +14,6 @@ namespace SkillStarLearning.SubscriptionRules.Application.Models
         public DateTime TrialStartsOn { get; set; }
         public DateTime TrialEndsOn { get; set; }
         public bool CreatesPaidSubscription { get; set; }
+        public string CustomerMessage { get; set; } = string.Empty;
     }
 }

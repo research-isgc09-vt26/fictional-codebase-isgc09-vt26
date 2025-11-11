@@ -18,17 +18,19 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
         private readonly IAuditLogWriter _auditLogWriter;
         private readonly TimeProvider _timeProvider;
         private readonly IMarketSubscriptionPolicy _marketSubscriptionPolicy;
-
+        private readonly ISubscriptionMessageService _subscriptionMessageService;
 
         public MembershipSignupService(
             IMembershipSignupRepository membershipSignupRepository,
             IAuditLogWriter auditLogWriter,
             IMarketSubscriptionPolicy marketSubscriptionPolicy,
+            ISubscriptionMessageService subscriptionMessageService,
             TimeProvider timeProvider)
         {
             _membershipSignupRepository = membershipSignupRepository;
             _auditLogWriter = auditLogWriter;
             _marketSubscriptionPolicy = marketSubscriptionPolicy;
+            _subscriptionMessageService = subscriptionMessageService;
             _timeProvider = timeProvider;
         }
 
@@ -57,6 +59,8 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
             await _membershipSignupRepository.AddAsync(signup, cancellationToken);
             await _auditLogWriter.WriteAsync($"MembershipSignup created by {command.StaffMember}.", cancellationToken);
 
+            var message = _subscriptionMessageService.GetMessage(SubscriptionMessageFlowType.MembershipSignup, command.Segmentation);
+
             return new MembershipSignupResultDto
             {
                 SignupId = signup.SignupId,
@@ -65,7 +69,8 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
                 TrialStatus = SubscriptionStatus.Trial,
                 TrialStartsOn = signup.TrialStartsOn,
                 TrialEndsOn = signup.TrialEndsOn,
-                CreatesPaidSubscription = signup.CreatesPaidSubscription
+                CreatesPaidSubscription = signup.CreatesPaidSubscription,
+                CustomerMessage = message.CustomerText
             };
         }
     }

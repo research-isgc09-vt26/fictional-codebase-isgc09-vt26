@@ -9,8 +9,18 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
 {
     public sealed class SubscriptionMessageService : ISubscriptionMessageService
     {
-        public SubscriptionMessageDto GetMessage(SubscriptionMessageFlowType flowType)
+        public SubscriptionMessageDto GetMessage(SubscriptionMessageFlowType flowType, Segmentation segmentation)
         {
+            if(segmentation == Segmentation.SegmentationB)
+            {
+                return new SubscriptionMessageDto
+                {
+                    FlowType = flowType,
+                    CustomerText = "Your community subscription is activated.",
+                    RefersToMembershipSignup = false
+                };
+            }
+
             var defaultMessage = new SubscriptionMessageDto
             {
                 FlowType = flowType,

@@ -6,8 +6,8 @@ using System.Text;
 
 namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Services
 {
-    internal interface ISubscriptionMessageService
+    public interface ISubscriptionMessageService
     {
-        SubscriptionMessageDto GetMessage(SubscriptionMessageFlowType flowType);
+        SubscriptionMessageDto GetMessage(SubscriptionMessageFlowType flowType, Segmentation segmentation);
     }
 }

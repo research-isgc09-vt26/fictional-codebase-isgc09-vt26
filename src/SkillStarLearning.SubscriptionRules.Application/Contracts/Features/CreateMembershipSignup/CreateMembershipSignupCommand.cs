@@ -10,7 +10,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Cre
         public required string UserId { get; set; }
         public required string StaffMember { get; set; }
         public bool CreatesPaidSubscription { get; set; } = true;
-        public required Segmentation Segmentation { get; set; }
+        public required Segmentation Segmentation { get; set; } = Segmentation.SegmentationA;
     }
 
 }

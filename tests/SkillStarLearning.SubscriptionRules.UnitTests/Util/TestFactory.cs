@@ -22,6 +22,8 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests.Util
 
         public static IMarketSubscriptionPolicy CreateMarketSubscriptionPolicy() => new MarketSubscriptionPolicy();
 
+        public static ISubscriptionMessageService CreateSubscriptionMessageService() => new SubscriptionMessageService();
+
         public static OldSubscriptionService CreateOldSubscriptionService()
         {
             return new  OldSubscriptionService(CreateSubscriptionRepository(), CreateUserProfileRepository(), CreateMembershipSignupRepository());
@@ -38,6 +40,7 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests.Util
                 CreateMembershipSignupRepository(),
                 CreateAuditLogWriter(),
                 CreateMarketSubscriptionPolicy(),
+                CreateSubscriptionMessageService(),
                 timeProvider ?? TimeProvider.System);
         }
     }

@@ -43,8 +43,9 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
 
         public SubscriptionOverviewDto ToOverview(SubscriptionAccount account, UserProfile profile, MembershipSignup? signupInfo)
         {
-            var nudgeToReviewProfile = account.SubscriptionType == SubscriptionType.CommunityMembershipSubscription
-                && (!profile.AllowsEventCommunication || string.IsNullOrEmpty(profile.PhoneNumber));
+            var nudgeToReviewProfile = (signupInfo is not null && signupInfo.Segmentation != Segmentation.SegmentationB) 
+                || (account.SubscriptionType == SubscriptionType.CommunityMembershipSubscription
+                && (!profile.AllowsEventCommunication || string.IsNullOrEmpty(profile.PhoneNumber)));
             
             return new SubscriptionOverviewDto
             {

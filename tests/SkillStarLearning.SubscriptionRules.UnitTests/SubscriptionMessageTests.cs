@@ -15,7 +15,7 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
         {
             var service = new SubscriptionMessageService();
 
-            var message = service.GetMessage(SubscriptionMessageFlowType.OnlineSubscription);
+            var message = service.GetMessage(SubscriptionMessageFlowType.OnlineSubscription, Segmentation.SegmentationA);
 
             Assert.IsFalse(message.RefersToMembershipSignup);
         }
@@ -25,7 +25,7 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
         {
             var service = new SubscriptionMessageService();
 
-            var message = service.GetMessage(SubscriptionMessageFlowType.CommunityMembershipSubscription);
+            var message = service.GetMessage(SubscriptionMessageFlowType.CommunityMembershipSubscription, Segmentation.SegmentationA);
 
             Assert.IsFalse(message.RefersToMembershipSignup);
         }
@@ -35,7 +35,7 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
         {
             var service = new SubscriptionMessageService();
 
-            var message = service.GetMessage(SubscriptionMessageFlowType.MembershipSignup);
+            var message = service.GetMessage(SubscriptionMessageFlowType.MembershipSignup, Segmentation.SegmentationA);
 
             StringAssert.Contains(message.CustomerText, "Your community signup is complete");
             Assert.IsTrue(message.RefersToMembershipSignup);

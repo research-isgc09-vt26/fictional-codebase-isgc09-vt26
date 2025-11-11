@@ -10,5 +10,6 @@ namespace SkillStarLearning.SubscriptionRules.Application.Models
         public SubscriptionMessageFlowType FlowType { get; set; }
         public string CustomerText { get; set; } = string.Empty;
         public bool RefersToMembershipSignup { get; set; }
+        public Segmentation Segmentation { get; set; }
     }
 }
