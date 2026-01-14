@@ -40,6 +40,16 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
             StringAssert.Contains(message.CustomerText, "Your community signup is complete");
             Assert.IsTrue(message.RefersToMembershipSignup);
         }
+
+        [TestMethod]
+        public void MarketB_SubscriptionMessageUsesLocalShorthandForCommunityMembership()
+        {
+            var service = new SubscriptionMessageService();
+
+            var message = service.GetMessage(SubscriptionMessageFlowType.CommunityMembershipSubscription, Segmentation.SegmentationB);
+
+            StringAssert.StartsWith(message.CustomerText, "Your community subscription is activated");
+        }
     }
 
 }

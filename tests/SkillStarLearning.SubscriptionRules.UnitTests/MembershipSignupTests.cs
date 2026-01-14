@@ -29,6 +29,20 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
             Assert.AreEqual(now.UtcDateTime.AddDays(30), result.TrialEndsOn);
             Assert.IsTrue(result.CreatesPaidSubscription);
         }
+
+        [TestMethod]
+        public async Task SubscribeOfflineMember_IsBlockedWhenMarketDoesNotOfferSignupTrial()
+        {
+            var service = TestFactory.CreateMembershipSignupService();
+
+            await Assert.ThrowsExceptionAsync<BusinessRuleException>(() =>
+                service.StartOfflineEventSignupAsync(new CreateMembershipSignupCommand
+                {
+                    UserId = "market-b-attendee",
+                    Segmentation = Segmentation.SegmentationB,
+                    StaffMember = "staff-2"
+                }));
+        }
     }
 
 }
