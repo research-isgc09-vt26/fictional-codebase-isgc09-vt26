@@ -66,6 +66,65 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
 
             Assert.IsNotNull(overview.SignupInfo);
         }
+
+        [TestMethod]
+        public async Task OldSubscriptionService_ExtendedWidget_ReturnsProfileAndNoNudge_ForCompleteCommunityMember()
+        {
+            var service = TestFactory.CreateOldSubscriptionService();
+
+            var overview = await service.GetExtendedSubscriptionWidgetAsync("community-user-01");
+
+            Assert.IsNotNull(overview);
+            Assert.AreEqual(SubscriptionType.CommunityMembershipSubscription, overview.SubscriptionType);
+            Assert.AreEqual("+45 55 66 77 88", overview.Profile.PhoneNumber);
+            Assert.AreEqual("Copenhagen North", overview.Profile.LocalCommunityRegion);
+            Assert.IsTrue(overview.Profile.AllowsEventCommunication);
+            Assert.AreEqual("Step-free access requested", overview.Profile.AccessibilityNotes);
+            Assert.IsFalse(overview.RequiresMembershipProfileReview);
+        }
+
+        [TestMethod]
+        public async Task OldSubscriptionService_ExtendedWidget_IncludesNudge_WhenCommunityProfileIncomplete()
+        {
+            var service = TestFactory.CreateOldSubscriptionService();
+
+            var overview = await service.GetExtendedSubscriptionWidgetAsync("community-user-02");
+
+            Assert.IsNotNull(overview);
+            Assert.AreEqual(SubscriptionType.CommunityMembershipSubscription, overview.SubscriptionType);
+            Assert.IsFalse(overview.Profile.AllowsEventCommunication);
+            Assert.IsTrue(overview.RequiresMembershipProfileReview);
+        }
+
+        [TestMethod]
+        public async Task OldSubscriptionService_ExtendedWidget_ReturnsNull_ForOnlineSubscription()
+        {
+            var service = TestFactory.CreateOldSubscriptionService();
+
+            var overview = await service.GetExtendedSubscriptionWidgetAsync("online-user-01");
+
+            Assert.IsNull(overview);
+        }
+
+        [TestMethod]
+        public async Task OldSubscriptionService_ExtendedWidget_ReturnsNull_ForMembershipSignupSubscription()
+        {
+            var service = TestFactory.CreateOldSubscriptionService();
+
+            var overview = await service.GetExtendedSubscriptionWidgetAsync("signup-user-01");
+
+            Assert.IsNull(overview);
+        }
+
+        [TestMethod]
+        public async Task OldSubscriptionService_ExtendedWidget_ReturnsNull_WhenNoSubscriptionAccount()
+        {
+            var service = TestFactory.CreateOldSubscriptionService();
+
+            var overview = await service.GetExtendedSubscriptionWidgetAsync("unknown-user");
+
+            Assert.IsNull(overview);
+        }
     }
 
 }

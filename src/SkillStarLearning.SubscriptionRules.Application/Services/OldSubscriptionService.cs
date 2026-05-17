@@ -41,6 +41,24 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
             return ToOverview(account, profile, signupInfo);
         }
 
+        public async Task<SubscriptionOverviewDto?> GetExtendedSubscriptionWidgetAsync(
+            string userId,
+            CancellationToken cancellationToken = default)
+        {
+            var account = await _subscriptionRepository.GetByUserIdAsync(userId, cancellationToken);
+            if (account is null || account.SubscriptionType != SubscriptionType.CommunityMembershipSubscription)
+            {
+                return null;
+            }
+
+            var profile = await _userProfileRepository.GetByUserIdAsync(userId, cancellationToken)
+                ?? throw new NotFoundException(nameof(UserProfile), userId);
+
+            var signupInfo = await _membershipSignupRepository.GetByUserIdAsync(userId, cancellationToken);
+
+            return ToOverview(account, profile, signupInfo);
+        }
+
         public SubscriptionOverviewDto ToOverview(SubscriptionAccount account, UserProfile profile, MembershipSignup? signupInfo)
         {
             var nudgeToReviewProfile = (signupInfo is not null && signupInfo.Segmentation != Segmentation.SegmentationB) 
