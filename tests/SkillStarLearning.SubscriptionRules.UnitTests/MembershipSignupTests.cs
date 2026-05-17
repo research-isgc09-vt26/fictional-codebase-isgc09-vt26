@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SkillStarLearning.SubscriptionRules.Application.Contracts.Features.CreateMembershipSignup;
-using SkillStarLearning.SubscriptionRules.Application.Exceptions;
 using SkillStarLearning.SubscriptionRules.Core.Enums;
 using SkillStarLearning.SubscriptionRules.UnitTests.Util;
 using System;
@@ -31,17 +30,36 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
         }
 
         [TestMethod]
-        public async Task SubscribeOfflineMember_IsBlockedWhenMarketDoesNotOfferSignupTrial()
+        public async Task SegmentationB_SignupSucceedsWithoutStandardFreeTrial()
+        {
+            var now = new DateTimeOffset(2026, 5, 14, 10, 0, 0, TimeSpan.Zero);
+            var service = TestFactory.CreateMembershipSignupService(new FixedTimeProvider(now));
+
+            var result = await service.StartOfflineEventSignupAsync(new CreateMembershipSignupCommand
+            {
+                UserId = "market-b-attendee",
+                Segmentation = Segmentation.SegmentationB,
+                StaffMember = "staff-2"
+            });
+
+            Assert.AreEqual(SubscriptionStatus.None, result.TrialStatus);
+            Assert.AreEqual(default(DateTime), result.TrialStartsOn);
+            Assert.AreEqual(default(DateTime), result.TrialEndsOn);
+        }
+
+        [TestMethod]
+        public async Task SegmentationB_SignupUsesMarketSpecificMessage()
         {
             var service = TestFactory.CreateMembershipSignupService();
 
-            await Assert.ThrowsExceptionAsync<BusinessRuleException>(() =>
-                service.StartOfflineEventSignupAsync(new CreateMembershipSignupCommand
-                {
-                    UserId = "market-b-attendee",
-                    Segmentation = Segmentation.SegmentationB,
-                    StaffMember = "staff-2"
-                }));
+            var result = await service.StartOfflineEventSignupAsync(new CreateMembershipSignupCommand
+            {
+                UserId = "market-b-attendee",
+                Segmentation = Segmentation.SegmentationB,
+                StaffMember = "staff-2"
+            });
+
+            StringAssert.Contains(result.CustomerMessage, "Your community subscription is ready");
         }
     }
 

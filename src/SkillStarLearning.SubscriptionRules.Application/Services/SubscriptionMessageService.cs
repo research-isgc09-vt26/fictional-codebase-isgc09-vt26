@@ -13,11 +13,20 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
         {
             if(segmentation == Segmentation.SegmentationB)
             {
-                return new SubscriptionMessageDto
+                return flowType switch
                 {
-                    FlowType = flowType,
-                    CustomerText = "Your community subscription is activated.",
-                    RefersToMembershipSignup = false
+                    SubscriptionMessageFlowType.MembershipSignup => new SubscriptionMessageDto
+                    {
+                        FlowType = flowType,
+                        CustomerText = "Your community subscription is ready.",
+                        RefersToMembershipSignup = true
+                    },
+                    _ => new SubscriptionMessageDto
+                    {
+                        FlowType = flowType,
+                        CustomerText = "Your community subscription is activated.",
+                        RefersToMembershipSignup = false
+                    }
                 };
             }
 

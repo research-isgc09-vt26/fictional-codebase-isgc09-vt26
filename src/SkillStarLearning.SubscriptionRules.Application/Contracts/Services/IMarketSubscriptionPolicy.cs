@@ -10,5 +10,6 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Services
         MarketSubscriptionModel GetSubscriptionModel(Segmentation segmentation);
         public bool IsSubscriptionAvailable(Segmentation segmentation, SubscriptionType subscriptionType);
         public bool IsMembershipSignupAvailable(Segmentation segmentation);
+        public bool IncludesStandardFreeTrial(Segmentation segmentation);
     }
 }

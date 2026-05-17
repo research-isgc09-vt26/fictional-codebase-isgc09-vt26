@@ -34,6 +34,13 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
 
         public bool IsMembershipSignupAvailable(Segmentation segmentation)
         {
+            var model = GetSubscriptionModel(segmentation);
+            return model == MarketSubscriptionModel.StandardMixedSubscriptionModel
+                || model == MarketSubscriptionModel.CommunityOnlySubscriptionModel;
+        }
+
+        public bool IncludesStandardFreeTrial(Segmentation segmentation)
+        {
             return GetSubscriptionModel(segmentation) == MarketSubscriptionModel.StandardMixedSubscriptionModel;
         }
     }

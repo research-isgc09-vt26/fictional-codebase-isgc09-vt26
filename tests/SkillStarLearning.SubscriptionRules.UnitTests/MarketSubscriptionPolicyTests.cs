@@ -27,12 +27,11 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
         }
 
         [TestMethod]
-        public void SegmentationB_DoesNotAllowOnlineSubscriptionOrMembershipSignup()
+        public void SegmentationB_DoesNotAllowOnlineSubscription()
         {
             var policy = new MarketSubscriptionPolicy();
 
             Assert.IsFalse(policy.IsSubscriptionAvailable(Segmentation.SegmentationB, SubscriptionType.OnlineSubscription));
-            Assert.IsFalse(policy.IsMembershipSignupAvailable(Segmentation.SegmentationB));
         }
 
         [TestMethod]
@@ -41,6 +40,30 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
             var policy = new MarketSubscriptionPolicy();
 
             Assert.IsTrue(policy.IsSubscriptionAvailable(Segmentation.SegmentationB, SubscriptionType.CommunityMembershipSubscription));
+        }
+
+        [TestMethod]
+        public void SegmentationB_AllowsMembershipSignup()
+        {
+            var policy = new MarketSubscriptionPolicy();
+
+            Assert.IsTrue(policy.IsMembershipSignupAvailable(Segmentation.SegmentationB));
+        }
+
+        [TestMethod]
+        public void SegmentationB_DoesNotIncludeStandardFreeTrial()
+        {
+            var policy = new MarketSubscriptionPolicy();
+
+            Assert.IsFalse(policy.IncludesStandardFreeTrial(Segmentation.SegmentationB));
+        }
+
+        [TestMethod]
+        public void SegmentationA_IncludesStandardFreeTrial()
+        {
+            var policy = new MarketSubscriptionPolicy();
+
+            Assert.IsTrue(policy.IncludesStandardFreeTrial(Segmentation.SegmentationA));
         }
     }
 
