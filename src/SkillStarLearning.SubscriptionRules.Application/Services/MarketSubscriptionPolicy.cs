@@ -22,17 +22,23 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
         {
             var model = GetSubscriptionModel(segmentation);
 
-            var isCommunityOnlySubscriptionModel = subscriptionType == SubscriptionType.CommunityMembershipSubscription;
+            var isAvailableInCommunityOnlyMarket = subscriptionType == SubscriptionType.CommunityMembershipSubscription
+                || subscriptionType == SubscriptionType.MembershipSignupSubscription;
 
             return model switch
             {
                 MarketSubscriptionModel.StandardMixedSubscriptionModel => true,
-                MarketSubscriptionModel.CommunityOnlySubscriptionModel => isCommunityOnlySubscriptionModel,
+                MarketSubscriptionModel.CommunityOnlySubscriptionModel => isAvailableInCommunityOnlyMarket,
                 _ => false
             };
         }
 
         public bool IsMembershipSignupAvailable(Segmentation segmentation)
+        {
+            return IsSubscriptionAvailable(segmentation, SubscriptionType.MembershipSignupSubscription);
+        }
+
+        public bool IsMembershipSignupTrialOffered(Segmentation segmentation)
         {
             return GetSubscriptionModel(segmentation) == MarketSubscriptionModel.StandardMixedSubscriptionModel;
         }

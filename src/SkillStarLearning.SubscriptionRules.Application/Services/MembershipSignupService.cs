@@ -44,12 +44,15 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
             }
 
             var now = _timeProvider.GetUtcNow().UtcDateTime;
+            var trialOffered = _marketSubscriptionPolicy.IsMembershipSignupTrialOffered(command.Segmentation);
+            var trialEndsOn = trialOffered ? now.AddDays(30) : now;
+
             var signup = new MembershipSignup
             {
                 UserId = command.UserId,
                 StaffMember = command.StaffMember,
                 TrialStartsOn = now,
-                TrialEndsOn = now.AddDays(30),
+                TrialEndsOn = trialEndsOn,
                 CreatesPaidSubscription = command.CreatesPaidSubscription,
                 CreatedBy = command.StaffMember,
                 CreatedDate = now,
@@ -66,7 +69,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
                 SignupId = signup.SignupId,
                 UserId = signup.UserId,
                 SignupType = signup.SignupType,
-                TrialStatus = SubscriptionStatus.Trial,
+                TrialStatus = trialOffered ? SubscriptionStatus.Trial : SubscriptionStatus.None,
                 TrialStartsOn = signup.TrialStartsOn,
                 TrialEndsOn = signup.TrialEndsOn,
                 CreatesPaidSubscription = signup.CreatesPaidSubscription,
