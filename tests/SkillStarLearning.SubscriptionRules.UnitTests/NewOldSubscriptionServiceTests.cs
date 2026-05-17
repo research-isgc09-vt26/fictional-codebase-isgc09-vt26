@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SkillStarLearning.SubscriptionRules.Application.Exceptions;
 using SkillStarLearning.SubscriptionRules.Core.Enums;
 using SkillStarLearning.SubscriptionRules.UnitTests.Util;
 using System;
@@ -65,6 +66,42 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests
             var overview = await service.GetSubscriptionSettingsAsync("signup-user-01");
 
             Assert.IsNotNull(overview.SignupInfo);
+        }
+
+        [TestMethod]
+        public async Task SubscriptionService_ExtendedWidget_CommunityMembership_IncludesContactDetailsAndPreferences()
+        {
+            var service = TestFactory.CreateSubscriptionService();
+
+            var widget = await service.GetExtendedSubscriptionWidgetAsync("community-user-01");
+
+            Assert.AreEqual(SubscriptionType.CommunityMembershipSubscription, widget.SubscriptionType);
+            Assert.AreEqual("john.doe@example.test", widget.Profile.Email);
+            Assert.AreEqual("+45 55 66 77 88", widget.Profile.PhoneNumber);
+            Assert.AreEqual("Copenhagen North", widget.Profile.LocalCommunityRegion);
+            Assert.IsTrue(widget.Profile.AllowsEventCommunication);
+            Assert.AreEqual("Step-free access requested", widget.Profile.AccessibilityNotes);
+            Assert.IsFalse(widget.RequiresMembershipProfileReview);
+        }
+
+        [TestMethod]
+        public async Task SubscriptionService_ExtendedWidget_CommunityMembership_IncludesNudge_WhenIncompleteProfile()
+        {
+            var service = TestFactory.CreateSubscriptionService();
+
+            var widget = await service.GetExtendedSubscriptionWidgetAsync("community-user-02");
+
+            Assert.IsFalse(widget.Profile.AllowsEventCommunication);
+            Assert.IsTrue(widget.RequiresMembershipProfileReview);
+        }
+
+        [TestMethod]
+        public async Task SubscriptionService_ExtendedWidget_NotAvailable_ForOnlineSubscription()
+        {
+            var service = TestFactory.CreateSubscriptionService();
+
+            await Assert.ThrowsExceptionAsync<NotFoundException>(
+                () => service.GetExtendedSubscriptionWidgetAsync("online-user-01"));
         }
     }
 

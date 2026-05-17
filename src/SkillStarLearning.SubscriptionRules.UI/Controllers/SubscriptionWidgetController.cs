@@ -21,5 +21,12 @@ namespace SkillStarLearning.SubscriptionRules.UI.Controllers
         {
             return Ok(await _newSubscriptionService.GetSubscriptionWidgetSummaryAsync(userId, cancellationToken));
         }
+
+        [HttpGet("{userId}/extended", Name = "GetExtendedSubscriptionWidget")]
+        [ProducesResponseType(typeof(SubscriptionOverviewDto), StatusCodes.Status200OK)]
+        public async Task<ActionResult<SubscriptionOverviewDto>> GetExtended(string userId, CancellationToken cancellationToken)
+        {
+            return Ok(await _newSubscriptionService.GetExtendedSubscriptionWidgetAsync(userId, cancellationToken));
+        }
     }
 }

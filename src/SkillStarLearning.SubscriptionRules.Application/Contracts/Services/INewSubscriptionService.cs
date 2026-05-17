@@ -11,5 +11,9 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Services
         Task<SimpleSubscriptionSummaryDto> GetSubscriptionWidgetSummaryAsync(
             string userId,
             CancellationToken cancellationToken = default);
+
+        Task<SubscriptionOverviewDto> GetExtendedSubscriptionWidgetAsync(
+            string userId,
+            CancellationToken cancellationToken = default);
     }
 }

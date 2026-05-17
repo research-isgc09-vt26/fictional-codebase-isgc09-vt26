@@ -31,7 +31,14 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests.Util
 
         public static NewSubscriptionService CreateSubscriptionService()
         {
-            return new NewSubscriptionService(CreateSubscriptionRepository());
+            // Share repositories between the old and new services so the widget reads
+            // and the overview reads see the same fixtures.
+            var subscriptionRepository = CreateSubscriptionRepository();
+            var oldService = new OldSubscriptionService(
+                subscriptionRepository,
+                CreateUserProfileRepository(),
+                CreateMembershipSignupRepository());
+            return new NewSubscriptionService(subscriptionRepository, oldService);
         }
 
         public static MembershipSignupService CreateMembershipSignupService(TimeProvider? timeProvider = null)
