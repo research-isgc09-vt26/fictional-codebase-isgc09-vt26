@@ -11,6 +11,7 @@
         public string PhoneNumber { get; set; } = string.Empty;
         public string LocalCommunityRegion { get; set; } = string.Empty;
         public bool AllowsEventCommunication { get; set; }
+        public bool AllowsSmsMarketing { get; set; }
         public string AccessibilityNotes { get; set; } = string.Empty;
         public string EmergencyContactPreference { get; set; } = string.Empty;
     }

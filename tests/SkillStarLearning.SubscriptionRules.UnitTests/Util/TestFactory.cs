@@ -1,4 +1,5 @@
-﻿using SkillStarLearning.SubscriptionRules.Application.Contracts.Infrastructure;
+﻿using SkillStarLearning.SubscriptionRules.Application.Contracts.Features.UpdateSubscriptionSettings;
+using SkillStarLearning.SubscriptionRules.Application.Contracts.Infrastructure;
 using SkillStarLearning.SubscriptionRules.Application.Contracts.Persistence;
 using SkillStarLearning.SubscriptionRules.Application.Contracts.Services;
 using SkillStarLearning.SubscriptionRules.Application.Services;
@@ -42,6 +43,23 @@ namespace SkillStarLearning.SubscriptionRules.UnitTests.Util
                 CreateMarketSubscriptionPolicy(),
                 CreateSubscriptionMessageService(),
                 timeProvider ?? TimeProvider.System);
+        }
+
+        public static UpdateSubscriptionSettingsHandler CreateUpdateSubscriptionSettingsHandler()
+        {
+            var subscriptionRepository = CreateSubscriptionRepository();
+            var userProfileRepository = CreateUserProfileRepository();
+            var membershipSignupRepository = CreateMembershipSignupRepository();
+            var oldSubscriptionService = new OldSubscriptionService(
+                subscriptionRepository,
+                userProfileRepository,
+                membershipSignupRepository);
+
+            return new UpdateSubscriptionSettingsHandler(
+                subscriptionRepository,
+                userProfileRepository,
+                oldSubscriptionService,
+                membershipSignupRepository);
         }
     }
 

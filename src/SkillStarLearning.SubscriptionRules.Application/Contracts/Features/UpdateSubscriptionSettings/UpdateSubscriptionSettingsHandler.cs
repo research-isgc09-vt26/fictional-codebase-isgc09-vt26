@@ -39,6 +39,8 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Upd
             var profile = await _userProfileRepository.GetByUserIdAsync(command.UserId, cancellationToken)
                 ?? throw new NotFoundException(nameof(UserProfile), command.UserId);
 
+            ValidateSmsMarketingConsent(command, account);
+
             if (account.SubscriptionType == SubscriptionType.CommunityMembershipSubscription)
             {
                 ValidateMembershipFields(command);
@@ -50,6 +52,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Upd
             profile.BillingAddress = command.BillingAddress;
             profile.LocalCommunityRegion = command.LocalCommunityRegion;
             profile.AllowsEventCommunication = command.AllowsEventCommunication;
+            profile.AllowsSmsMarketing = command.AllowsSmsMarketing;
             profile.HasAcceptedMembershipTerms = command.HasAcceptedMembershipTerms;
             profile.AccessibilityNotes = command.AccessibilityNotes;
             profile.EmergencyContactPreference = command.EmergencyContactPreference;
@@ -72,6 +75,22 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Upd
             if (!command.HasAcceptedMembershipTerms)
             {
                 throw new BusinessRuleException("Community membership terms must be accepted for offline membership administration.");
+            }
+        }
+
+        private static void ValidateSmsMarketingConsent(UpdateSubscriptionSettingsCommand command, SubscriptionAccount account)
+        {
+            if (!command.AllowsSmsMarketing)
+            {
+                return;
+            }
+
+            var isOrdinarySignupType = account.SubscriptionType == SubscriptionType.OnlineSubscription
+                || account.SubscriptionType == SubscriptionType.CommunityMembershipSubscription;
+
+            if (isOrdinarySignupType && string.IsNullOrWhiteSpace(command.PhoneNumber))
+            {
+                throw new BusinessRuleException("A phone number is required when SMS marketing consent is given.");
             }
         }
     }

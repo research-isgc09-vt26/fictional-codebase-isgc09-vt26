@@ -75,6 +75,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
                     PhoneNumber = profile.PhoneNumber,
                     LocalCommunityRegion = profile.LocalCommunityRegion,
                     AllowsEventCommunication = profile.AllowsEventCommunication,
+                    AllowsSmsMarketing = profile.AllowsSmsMarketing,
                     AccessibilityNotes = profile.AccessibilityNotes,
                     EmergencyContactPreference = profile.EmergencyContactPreference
                 }

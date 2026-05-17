@@ -13,6 +13,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Upd
         public required string BillingAddress { get; set; }
         public string LocalCommunityRegion { get; set; } = string.Empty;
         public bool AllowsEventCommunication { get; set; }
+        public bool AllowsSmsMarketing { get; set; }
         public bool HasAcceptedMembershipTerms { get; set; }
         public string AccessibilityNotes { get; set; } = string.Empty;
         public string EmergencyContactPreference { get; set; } = string.Empty;
