@@ -44,6 +44,12 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Upd
                 ValidateMembershipFields(command);
             }
 
+            if (account.SubscriptionType == SubscriptionType.OnlineSubscription
+                || account.SubscriptionType == SubscriptionType.CommunityMembershipSubscription)
+            {
+                ValidateSmsMarketingConsent(command);
+            }
+
             profile.FullName = command.FullName;
             profile.PreferredDisplayName = command.PreferredDisplayName;
             profile.PhoneNumber = command.PhoneNumber;
@@ -53,6 +59,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Upd
             profile.HasAcceptedMembershipTerms = command.HasAcceptedMembershipTerms;
             profile.AccessibilityNotes = command.AccessibilityNotes;
             profile.EmergencyContactPreference = command.EmergencyContactPreference;
+            profile.AcceptsSmsMarketing = command.AcceptsSmsMarketing;
             profile.LastModifiedDate = DateTime.UtcNow;
 
             await _userProfileRepository.SaveAsync(profile, cancellationToken);
@@ -72,6 +79,14 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Upd
             if (!command.HasAcceptedMembershipTerms)
             {
                 throw new BusinessRuleException("Community membership terms must be accepted for offline membership administration.");
+            }
+        }
+
+        private static void ValidateSmsMarketingConsent(UpdateSubscriptionSettingsCommand command)
+        {
+            if (command.AcceptsSmsMarketing && string.IsNullOrWhiteSpace(command.PhoneNumber))
+            {
+                throw new BusinessRuleException("A phone number is required when SMS marketing consent is selected.");
             }
         }
     }

@@ -13,5 +13,6 @@
         public bool AllowsEventCommunication { get; set; }
         public string AccessibilityNotes { get; set; } = string.Empty;
         public string EmergencyContactPreference { get; set; } = string.Empty;
+        public bool AcceptsSmsMarketing { get; set; }
     }
 }

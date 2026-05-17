@@ -76,7 +76,8 @@ namespace SkillStarLearning.SubscriptionRules.Application.Services
                     LocalCommunityRegion = profile.LocalCommunityRegion,
                     AllowsEventCommunication = profile.AllowsEventCommunication,
                     AccessibilityNotes = profile.AccessibilityNotes,
-                    EmergencyContactPreference = profile.EmergencyContactPreference
+                    EmergencyContactPreference = profile.EmergencyContactPreference,
+                    AcceptsSmsMarketing = profile.AcceptsSmsMarketing
                 }
             };
         }

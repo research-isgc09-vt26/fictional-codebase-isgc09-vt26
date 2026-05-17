@@ -16,6 +16,7 @@ namespace SkillStarLearning.SubscriptionRules.Application.Contracts.Features.Upd
         public bool HasAcceptedMembershipTerms { get; set; }
         public string AccessibilityNotes { get; set; } = string.Empty;
         public string EmergencyContactPreference { get; set; } = string.Empty;
+        public bool AcceptsSmsMarketing { get; set; }
     }
 
 }
